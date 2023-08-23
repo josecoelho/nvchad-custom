@@ -37,7 +37,15 @@ local plugins = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim"
     }
-  }
+  },
+  -- In order to modify the `lspconfig` configuration:
+  {
+    "neovim/nvim-lspconfig",
+     config = function()
+        require "plugins.configs.lspconfig"
+        require "custom.configs.lspconfig"
+     end,
+  },
 
 
   -- To make a plugin not be loaded
