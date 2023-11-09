@@ -2,6 +2,17 @@ local overrides = require("custom.configs.overrides")
 
 ---@type NvPluginSpec[]
 local plugins = {
+  -- Nice tabs (replacing NVChad tabfufline)
+  {
+    'akinsho/bufferline.nvim',
+    event='VeryLazy',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      vim.opt.termguicolors = true
+      require("bufferline").setup{}
+    end,
+  },
 
   -- Tmux integration
   {
