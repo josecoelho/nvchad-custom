@@ -32,6 +32,10 @@ local plugins = {
     "tpope/vim-fugitive",
     event="VeryLazy",
   },
+  {
+    "tpope/vim-rhubarb",
+    event="VeryLazy",
+  },
   -- :GBrowse bit bucket
   {
     "tommcdo/vim-fubitive",
