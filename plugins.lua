@@ -17,16 +17,12 @@ local plugins = {
       })
     end
   },
-
-  -- Nice tabs (replacing NVChad tabfufline)
   {
-    'akinsho/bufferline.nvim',
-    event='VeryLazy',
-    version = "*",
+    'nanozuki/tabby.nvim',
+    event = 'VimEnter',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-      vim.opt.termguicolors = true
-      require("bufferline").setup{}
+      require('custom.configs.tabby')
     end,
   },
 
