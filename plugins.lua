@@ -3,6 +3,14 @@ local overrides = require("custom.configs.overrides")
 ---@type NvPluginSpec[]
 local plugins = {
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
+  {
    "williamboman/mason.nvim",
    opts = {
       ensure_installed = {
@@ -17,6 +25,9 @@ local plugins = {
         "deno",
         "prettier",
 
+        -- terraform stuff
+        "terraform-ls",
+
         -- c/cpp stuff
         "clangd",
         "clang-format",
@@ -28,24 +39,6 @@ local plugins = {
       },
     },
   },
-
-  {
-    'codota/tabnine-nvim',
-    event='VeryLazy',
-    build = "./dl_binaries.sh",
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment=true,
-        accept_keymap="<Right>",
-        dismiss_keymap = "<C-]>",
-        debounce_ms = 800,
-        suggestion_color = {gui = "#808080", cterm = 244},
-        exclude_filetypes = {"TelescopePrompt", "NvimTree"},
-        log_file_path = nil, -- absolute path to Tabnine log file
-      })
-      require('tabnine.status').status()
-    end
-  },
   {
     'hrsh7th/nvim-cmp',
     opts = {
@@ -55,29 +48,15 @@ local plugins = {
         { name = "buffer" },
         { name = "nvim_lua" },
         { name = "path" },
-        { name = "cmp_tabnine" },
+        { name = "copilot"}
       },
     },
 
     dependencies = {
       {
-        "tzachar/cmp-tabnine",
-        build = "./install.sh",
+        "zbirenbaum/copilot-cmp",
         config = function()
-          local tabnine = require "cmp_tabnine.config"
-          tabnine:setup {
-            max_lines = 1000,
-            max_num_results = 20,
-            sort = true,
-            run_on_every_keystroke = true,
-            snippet_placeholder = '..',
-            ignored_file_types = {
-              -- default is not to ignore
-              -- uncomment to ignore in lua:
-              -- lua = true
-            },
-            show_prediction_strength = true
-          } -- put your options here
+          require("copilot_cmp").setup()
         end,
       },
     },
@@ -120,6 +99,14 @@ local plugins = {
         { nargs = 1 }
       )
     end
+  },
+  {
+    "tpope/vim-rails",
+    event="VeryLazy",
+  },
+  {
+    "tpope/vim-endwise",
+    event="VeryLazy",
   },
   {
     "tpope/vim-rhubarb",
